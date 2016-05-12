@@ -1,0 +1,77 @@
+---
+title: "Manifold learning in R - Basic Syntax"
+author: "Jackson Kwok"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Basic Demo}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The following is a quick reference on how to call dimensionality reduction functions in R. This includes PCA, MDS, Isomap, Locally Linear Embedding (LLE), Diffusion Map, t-SNE, KPCA, Stochastic Proximity Embedding (SPE), Laplacian Eigenmaps, Hessian LLE and Local Tangent Space Alignment(LTSA).
+
+First we simulate some data.
+```
+library(maniTools)
+num_pts = 600
+d = 2   #target dimension
+k = 8   #k nearest neighbors
+sim_data <- swiss_roll(num_pts)
+plotly_3D(sim_data)
+```
+
+Now we do dimensionality reduction. 
+We begin with some classical techniques.
+```
+# PCA (on centered and scaled data)
+pca_dr <- sim_data$data %>% center_and_standardise() %>% prcomp()
+proj_data <- sim_data$data %*% pca_dr$rotation[,1:2]
+plotly_2D(proj_data, sim_data$colors) %>% plotly::layout(title = "PCA")
+
+# MDS
+proj_data <- cmdscale(dist(sim_data$data), k = d)
+plotly_2D(proj_data, sim_data$colors) %>% plotly::layout(title = "MDS")
+```
+
+Next, we look at some local nonlinear techniques.
+```
+# LLE
+proj_data <- LLE2(sim_data$data, dim = d, k = k)
+plotly_2D(proj_data, sim_data$colors) %>% plotly::layout(title = "LLE")
+
+# Hessian LLE
+proj_data <- Hessian_LLE(sim_data$data, k = k, d = d)$projection
+plotly_2D(proj_data, sim_data$colors) %>% plotly::layout(title = "Hessian LLE")
+
+# Laplacian Eigenmaps
+proj_data <- Laplacian_Eigenmaps(sim_data$data, k = k, d = d)$eigenvectors
+plotly_2D(proj_data, sim_data$colors) %>% plotly::layout(title = "Laplacian Eigenmaps")
+
+# LTSA
+proj_data <- Local_TSA(sim_data$data, k = k, d = d)
+plotly_2D(proj_data, sim_data$colors) %>% plotly::layout(title = "Local Tangent Space Alignment")
+```
+
+Finally, we have global nonlinear techniques.
+```
+# Isomap
+proj_data <- RDRToolbox::Isomap(sim_data$data, dims = d, k = k)$dim2
+plotly_2D(proj_data, sim_data$colors) %>% plotly::layout(title = "ISOMAP")
+
+# Diffusion Map
+proj_data <- diffusionMap::diffuse(dist(sim_data$data), neigen = d)$X
+plotly_2D(proj_data, sim_data$colors) %>% plotly::layout(title = "Diffusion Map")
+
+# t-SNE
+proj_data <- tsne::tsne(sim_data$data, k = d)
+plotly_2D(proj_data, sim_data$colors) %>% plotly::layout(title = "t-SNE")
+
+# SPE
+proj_data <- spe::spe(sim_data$data, edim = d)$x
+plotly_2D(proj_data, sim_data$colors) %>% plotly::layout(title = "SPE")
+
+# KernelPCA
+proj_data <- kernlab::kpca(sim_data$data, kernel = 'laplacedot', features = d)@pcv
+plotly_2D(proj_data, sim_data$colors) %>% plotly::layout(title = "Kernel PCA")
+```

@@ -1,0 +1,15 @@
+---
+title: "Manifold learning in R - Shiny App"
+author: "Jackson Kwok"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Shiny App}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+Simply use the following function to see the Shiny app for this package:
+```
+library(maniTools)
+runExample()
+```
