@@ -173,17 +173,20 @@ server <- shinyServer(function(input, output) {
   data_from_file <- reactive({
     inFile <- input$file_input
     if (is.null(inFile)) return(NULL)
-    sim_data <- read.csv(inFile$datapath, header = input$header,
-           sep = input$sep, quote = input$quote)
-    x <- sim_data[,1]
-    y <- sim_data[,2]
-    z <- sim_data[,3]
+    sim_data <- read.csv( inFile$datapath, header = input$header,
+                          sep = input$sep, quote = input$quote )
     if (ncol(sim_data) >= 4) {
       scale <- sim_data[,4]
     } else {
       scale <- z
     }
-    return(list(data = cbind(x, y, z), colors = scale))
+    list(data = as.matrix(sim_data), colors = scale)
+  })
+
+  reduce_to_3d <- reactive({
+    sim_data <- data_from_file()
+    sim_data$data <- sim_data$data[,1:3]
+    sim_data
   })
 
   DR_data <- reactiveValues(simulation = NULL)
@@ -214,7 +217,7 @@ server <- shinyServer(function(input, output) {
 # First tab ================================================================================
    output$plot_3d <- renderPlotly({
     if (!is.null(data_from_file())) {
-      sim_data <- data_from_file()
+      sim_data <- reduce_to_3d()
     } else {
       data_f <- switch(input$data_input,
                        "Swiss Roll" = swiss_roll,
@@ -262,7 +265,7 @@ server <- shinyServer(function(input, output) {
 # Second tab ================================================================================
    output$c_plot_1 <- renderPlotly({
      if (!is.null(data_from_file())) {
-       sim_data <- data_from_file()
+       sim_data <- reduce_to_3d()
      } else {
        data_f <- switch(input$data_input,
                         "Swiss Roll" = swiss_roll,
@@ -326,131 +329,6 @@ server <- shinyServer(function(input, output) {
          })
        }
    })
-
-   # output$c_plot_2 <- renderPlotly({
-   #   if (!is.null(data_from_file())) {
-   #     tmp_data <- data_from_file()
-   #     sim_data <- list(data = as.matrix(tmp_data), colors = tmp_data[,3])
-   #     DR_data$simulation <- sim_data
-   #   }
-   #   algor_list <- input$algor_group
-   #   if (length(algor_list) >= 1) {
-   #      res <- dr_demo(DR_data$simulation, algor = algor_list[[2]],
-   #                     k = input$k, d = input$d, kernel = input$kernel)
-   #      total_time$time_taken <- res[[2]]
-   #      res[[1]]
-   #   }
-   # })
-#    output$c_plot_3 <- renderPlotly({
-#      if (!is.null(data_from_file())) {
-#        tmp_data <- data_from_file()
-#        sim_data <- list(data = as.matrix(tmp_data), colors = tmp_data[,3])
-#        DR_data$simulation <- sim_data
-#      }
-#      res <- dr_demo(DR_data$simulation, algor = 'mds',
-#                     k = input$k, d = input$d, kernel = input$kernel)
-#      total_time$time_taken <- res[[2]]
-#      res[[1]]
-#    })
-#    output$c_plot_4 <- renderPlotly({
-#      if (!is.null(data_from_file())) {
-#        tmp_data <- data_from_file()
-#        sim_data <- list(data = as.matrix(tmp_data), colors = tmp_data[,3])
-#        DR_data$simulation <- sim_data
-#      }
-#      res <- dr_demo(DR_data$simulation, algor = 'isomap',
-#                     k = input$k, d = input$d, kernel = input$kernel)
-#      total_time$time_taken <- res[[2]]
-#      res[[1]]
-#    })
-#    output$c_plot_5 <- renderPlotly({
-#      if (!is.null(data_from_file())) {
-#        tmp_data <- data_from_file()
-#        sim_data <- list(data = as.matrix(tmp_data), colors = tmp_data[,3])
-#        DR_data$simulation <- sim_data
-#      }
-#      res <- dr_demo(DR_data$simulation, algor = 'lle',
-#                     k = input$k, d = input$d, kernel = input$kernel)
-#      total_time$time_taken <- res[[2]]
-#      res[[1]]
-#    })
-#    output$c_plot_6 <- renderPlotly({
-#      if (!is.null(data_from_file())) {
-#        tmp_data <- data_from_file()
-#        sim_data <- list(data = as.matrix(tmp_data), colors = tmp_data[,3])
-#        DR_data$simulation <- sim_data
-#      }
-#      res <- dr_demo(DR_data$simulation, algor = 'diffusionMap',
-#                     k = input$k, d = input$d, kernel = input$kernel)
-#      total_time$time_taken <- res[[2]]
-#      res[[1]]
-#    })
-#    output$c_plot_7 <- renderPlotly({
-#      if (!is.null(data_from_file())) {
-#        tmp_data <- data_from_file()
-#        sim_data <- list(data = as.matrix(tmp_data), colors = tmp_data[,3])
-#        DR_data$simulation <- sim_data
-#      }
-#      res <- dr_demo(DR_data$simulation, algor = 'tsne',
-#                     k = input$k, d = input$d, kernel = input$kernel)
-#      total_time$time_taken <- res[[2]]
-#      res[[1]]
-#    })
-#    output$c_plot_8 <- renderPlotly({
-#      if (!is.null(data_from_file())) {
-#        tmp_data <- data_from_file()
-#        sim_data <- list(data = as.matrix(tmp_data), colors = tmp_data[,3])
-#        DR_data$simulation <- sim_data
-#      }
-#      res <- dr_demo(DR_data$simulation, algor = 'kpca',
-#                     k = input$k, d = input$d, kernel = input$kernel)
-#      total_time$time_taken <- res[[2]]
-#      res[[1]]
-#    })
-#    output$c_plot_9 <- renderPlotly({
-#      if (!is.null(data_from_file())) {
-#        tmp_data <- data_from_file()
-#        sim_data <- list(data = as.matrix(tmp_data), colors = tmp_data[,3])
-#        DR_data$simulation <- sim_data
-#      }
-#      res <- dr_demo(DR_data$simulation, algor = 'spe',
-#                     k = input$k, d = input$d, kernel = input$kernel)
-#      total_time$time_taken <- res[[2]]
-#      res[[1]]
-#    })
-#    output$c_plot_10 <- renderPlotly({
-#      if (!is.null(data_from_file())) {
-#        tmp_data <- data_from_file()
-#        sim_data <- list(data = as.matrix(tmp_data), colors = tmp_data[,3])
-#        DR_data$simulation <- sim_data
-#      }
-#      res <- dr_demo(DR_data$simulation, algor = 'le',
-#                     k = input$k, d = input$d, kernel = input$kernel)
-#      total_time$time_taken <- res[[2]]
-#      res[[1]]
-#    })
-#    output$c_plot_11 <- renderPlotly({
-#      if (!is.null(data_from_file())) {
-#        tmp_data <- data_from_file()
-#        sim_data <- list(data = as.matrix(tmp_data), colors = tmp_data[,3])
-#        DR_data$simulation <- sim_data
-#      }
-#      res <- dr_demo(DR_data$simulation, algor = 'hlle',
-#                     k = input$k, d = input$d, kernel = input$kernel)
-#      total_time$time_taken <- res[[2]]
-#      res[[1]]
-#    })
-#    output$c_plot_12 <- renderPlotly({
-#      if (!is.null(data_from_file())) {
-#        tmp_data <- data_from_file()
-#        sim_data <- list(data = as.matrix(tmp_data), colors = tmp_data[,3])
-#        DR_data$simulation <- sim_data
-#      }
-#      res <- dr_demo(DR_data$simulation, algor = 'ltsa',
-#                     k = input$k, d = input$d, kernel = input$kernel)
-#      total_time$time_taken <- res[[2]]
-#      res[[1]]
-#    })
 })
 
 # Run the application
