@@ -72,7 +72,7 @@ HLLE <- function (X, k, d) {
   G = t(W) %*% W
   G = Matrix::Matrix(G, sparse = TRUE)
   G = as(G, "dgCMatrix")
-  Y = t(RSpectra::eigs_sym(A = G, k = d + 1, sigma = 0)$vectors[,1:d] * sqrt(N))
+  Y = t(RSpectra::eigs_sym(A = G, k = d + 1, sigma = -1e-14)$vectors[,1:d] * sqrt(N))
 
   #compute final coordinate alignment
   R = t(Y) %*% Y

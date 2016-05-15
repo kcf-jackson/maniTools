@@ -73,7 +73,7 @@ LTSA <- function(data, d, K, NI) {
   }
   B = (B + t(as.matrix(B))) / 2
 
-  tmp = RSpectra::eigs_sym(B, d+2, sigma = 0)
+  tmp = RSpectra::eigs_sym(B, d+2, sigma = -1e-14)
   U = tmp$vectors
   D = tmp$values
   lambda = D
