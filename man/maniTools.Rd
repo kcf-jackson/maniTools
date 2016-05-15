@@ -6,7 +6,7 @@
 \alias{maniTools-package}
 \title{Manifold learning in R}
 \description{
-Porting Todd Wittman's Manifold Learning Toolkit (MANI) from Matlab to R.
+This package is about porting Todd Wittman's Matlab codes, "MANI: Manifold Learning Toolkit", to R. In particular, three algorithms are ported: Laplacian Eigenmaps, Hessian LLE (HLLE) and Local Tangent Space Alignment (LTSA). Others are collected from existing R packages, including Isomap and LLE in "RDRToolbox", diffusionMap in "diffusionMap", t-SNE in "tsne", KPCA in "kernlab" and SPE in "spe".
 }
 \author{
 Jackson Kwok
