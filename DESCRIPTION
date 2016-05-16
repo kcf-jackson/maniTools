@@ -14,7 +14,8 @@ Imports:
   tsne,
   kernlab,
   spe,
-  plotly
+  plotly,
+  RSpectra
 Suggests:
   knitr
 VignetteBuilder:
