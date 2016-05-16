@@ -11,5 +11,5 @@ vignette: >
 Simply use the following function to see the Shiny app for this package:
 ```
 library(maniTools)
-runExample()
+run_example()
 ```
