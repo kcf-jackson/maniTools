@@ -145,8 +145,11 @@ ui <- shinyUI(fluidPage(
                            "LLE" = 'lle', "Diffusion Map" = 'diffusionMap',
                            "t-SNE" = 'tsne', "KPCA" = 'kpca', "SPE" = 'spe',
                            "Laplacian Eigenmaps" = 'le', "HLLE" = 'hlle', "LTSA" = 'ltsa'),
-            inline = TRUE),
-          actionButton("button", "Update")
+            inline = TRUE)
+        ),
+        fluidRow(
+          column(1, actionButton("button", "Update")),
+          column(11, textOutput("info_text"))
         ),
         fluidRow(
           column(4, plotlyOutput("c_plot_1")),
@@ -263,6 +266,8 @@ server <- shinyServer(function(input, output) {
 
 
 # Second tab ================================================================================
+   output$info_text <- renderText({"(Note: some algorithms may take long to run (e.g. Isomap and t-SNE),
+     please avoid clicking the 'Update' button while the calculation is being performed.)"})
    output$c_plot_1 <- renderPlotly({
      if (!is.null(data_from_file())) {
        sim_data <- reduce_to_3d()
