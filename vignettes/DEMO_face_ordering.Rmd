@@ -4,7 +4,7 @@ author: "Jackson Kwok"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Face ordering}
+  %\VignetteIndexEntry{Face Ordering}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
