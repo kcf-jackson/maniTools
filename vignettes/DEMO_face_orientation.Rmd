@@ -1,0 +1,40 @@
+---
+title: "Face orientation"
+author: "Jackson Kwok"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Face Orientation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+In this document, we reproduce a result as seen in Tenenbaum, Silva and Langford (2000). 
+By using dimensionality reduction technique (Isomap in particular), we find the 2 intrinic dimensions which contain the information of the orientation of the face images. The data we have are 698 face images each of which is of resolution 64 x 64 pixels. 
+
+```{r, message = F, fig.width = 7, fig.height = 7}
+rm(list = ls())
+library(maniTools)
+library(R.matlab)
+util_path <- system.file("face_orientation", "util_face_orientation.R", package = "maniTools")
+source(util_path)
+
+# load data
+fpath <- system.file("face_orientation", "face_data.mat", package = "maniTools")
+matlab_file <- readMat(fpath)
+image_mat <- t(matlab_file$images)
+ 
+# perform dimensionality reduction
+proj_data <- RDRToolbox::Isomap(image_mat, 2, 6)$dim2  #set d = 3 to learn lighting directions.
+plot(proj_data, pch = 19, cex = 0.5)
+
+# plot results
+sample_image_ind <- sample(seq(nrow(image_mat)), 20)
+purrr::walk(sample_image_ind, ~plot_faces(., proj_data, image_mat))
+```
+In the above, we see the projected dimension 1 relates to the left-right orientation of the faces while the projected dimension 2 relates to the top-bottom orientation of the faces. Isomap successfully extracts the information about the true variation of the face images.
+
+## Reference
+Paper: Tenenbaum, J. B., De Silva, V., & Langford, J. C. (2000). A global geometric framework for nonlinear dimensionality reduction. science, 290(5500), 2319-2323.
+
+Data: http://isomap.stanford.edu/datasets.html
