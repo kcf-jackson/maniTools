@@ -21,6 +21,7 @@ Suggests:
   fields,
   purrr,
   animation,
-  R.matlab
+  R.matlab,
+  pixmap
 VignetteBuilder:
   knitr
