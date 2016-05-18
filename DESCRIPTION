@@ -17,6 +17,10 @@ Imports:
   plotly,
   RSpectra
 Suggests:
-  knitr
+  knitr,
+  fields,
+  purrr,
+  animation,
+  R.matlab
 VignetteBuilder:
   knitr
