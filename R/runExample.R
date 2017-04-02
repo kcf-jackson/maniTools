@@ -1,3 +1,4 @@
+#' A function to run the shiny app
 #' @export
 run_example <- function() {
   appDir <- system.file("shiny-examples", "maniTools", package = "maniTools")

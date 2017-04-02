@@ -161,6 +161,7 @@ gaussian_random_samples <- function(N, sigma = 1.0) {
 
 
 #' A simple 3d plot function using plotly.
+#' @param sim_data The data to be plotted.
 #' @examples
 #' sim_data <- swiss_roll(600)
 #' library(plotly)
@@ -178,6 +179,8 @@ plotly_3D <- function(sim_data) {
 
 
 #' A simple 2d plot function using plotly.
+#' @param proj_data The data to be plotted.
+#' @param colors Color spectrum in real values. See example for usage.
 #' @examples
 #' sim_data <- swiss_roll(600)
 #' library(plotly)
