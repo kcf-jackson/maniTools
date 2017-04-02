@@ -8,6 +8,9 @@ Description: This package is about porting Todd Wittman's Matlab codes, "MANI: M
 License: GPL-3
 LazyData: TRUE
 Imports:
+  methods,
+  stats,
+  utils,
   magrittr,
   RDRToolbox,
   diffusionMap,
@@ -15,7 +18,10 @@ Imports:
   kernlab,
   spe,
   plotly,
-  RSpectra
+  RSpectra,
+  MASS,
+  Matrix,
+  shiny
 Suggests:
   knitr,
   fields,
@@ -25,3 +31,4 @@ Suggests:
   pixmap
 VignetteBuilder:
   knitr
+RoxygenNote: 6.0.1
