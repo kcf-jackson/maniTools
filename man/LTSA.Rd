@@ -17,3 +17,4 @@ Extracted from Todd Wittman's MANI: Manifold Learning Toolkit
 Source: http://macs.citadel.edu/wittman/research.html
 Port from Matlab to R by Jackson Kwok
 }
+\keyword{internal}

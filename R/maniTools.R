@@ -24,3 +24,11 @@ NULL
 #' @importFrom magrittr %<>%
 #' @usage lhs \%<>\% rhs
 NULL
+
+#' Import functions
+#' @name imports
+#' @keywords internal
+#' @importFrom methods as
+#' @importFrom stats rnorm runif sd
+#' @importFrom utils tail
+NULL

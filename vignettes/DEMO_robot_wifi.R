@@ -22,8 +22,8 @@ names(proj_data) <- c('x', 'y')
 
 ## ---- fig.height=4, fig.width=8------------------------------------------
 # Plotting
-p1 <- plot_ly(ground_truth[c('x', 'y')], x = x, y = y, name = "Truth")
-p2 <- plot_ly(data = proj_data, x = x, y = y, mode = 'markers+lines', name = "Isomap")
+p1 <- plot_ly(ground_truth[c('x', 'y')], x = ~x, y = ~y, name = "Truth")
+p2 <- plot_ly(data = proj_data, x = ~x, y = ~y, mode = 'markers+lines', name = "Isomap")
 subplot(p1, p2) %>% layout(title = "Isomap")
 
 ## ---- fig.height=4, fig.width=9, message = FALSE-------------------------
@@ -36,7 +36,7 @@ names(LE_proj_data) <- c('x', 'y')
 LLE_proj_data <- LLE2(wireless, dim = 2, k = 7) %>% as.data.frame()
 names(LLE_proj_data) <- c('x', 'y')
 
-p3 <- plot_ly(data = LE_proj_data, x = x, y = y, mode = 'markers+lines', name = "Laplacian Eigenmaps")
-p4 <- plot_ly(data = LLE_proj_data, x = x, y = y, mode = 'markers+lines', name = "Locally Linear Embedding")
+p3 <- plot_ly(data = LE_proj_data, x = ~x, y = ~y, mode = 'markers+lines', name = "Laplacian Eigenmaps")
+p4 <- plot_ly(data = LLE_proj_data, x = ~x, y = ~y, mode = 'markers+lines', name = "Locally Linear Embedding")
 subplot(p3, p4)
 

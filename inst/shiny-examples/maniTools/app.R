@@ -235,7 +235,7 @@ server <- shinyServer(function(input, output) {
       DR_data$simulation <- sim_data
     }
     if (is.null(sim_data$data) | (ncol(sim_data$data) < 3)) {
-      plotly_empty()
+      plotly_empty(type = "scatter", mode = "markers")
     } else {
       plotly_3D(sim_data)
     }
@@ -247,7 +247,7 @@ server <- shinyServer(function(input, output) {
         DR_data$simulation <- sim_data
      }
      if (is.null(DR_data$simulation) | (ncol(DR_data$simulation$data) < 3)) {
-        plotly_empty()
+        plotly_empty(type = "scatter", mode = "markers")
      } else {
         res <- dr_demo(DR_data$simulation, algor = input$algor,
                         k = input$k, d = input$d, kernel = input$kernel)
@@ -328,7 +328,7 @@ server <- shinyServer(function(input, output) {
                  total_time$time_taken <- res[[2]]
                  res[[1]]
                } else {
-                 plotly_empty()
+                 plotly_empty(type = "scatter", mode = "markers")
                }
             })
          })

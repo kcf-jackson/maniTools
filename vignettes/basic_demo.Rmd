@@ -9,10 +9,14 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r setup, include=T}
+knitr::opts_chunk$set(echo = TRUE, eval = T, fig.width = 6, fig.height = 6)
+```
+
 The following is a quick reference on how to call dimensionality reduction functions in R. This includes PCA, MDS, Isomap, Locally Linear Embedding (LLE), Diffusion Map, t-SNE, KPCA, Stochastic Proximity Embedding (SPE), Laplacian Eigenmaps, Hessian LLE and Local Tangent Space Alignment(LTSA).
 
 First we simulate some data.
-```
+```{r}
 library(maniTools)
 num_pts = 600
 d = 2   #target dimension
@@ -23,7 +27,7 @@ plotly_3D(sim_data)
 
 Now we do dimensionality reduction. 
 We begin with some classical techniques.
-```
+```{r}
 # PCA (on centered and scaled data)
 pca_dr <- sim_data$data %>% center_and_standardise() %>% prcomp()
 proj_data <- sim_data$data %*% pca_dr$rotation[,1:2]
@@ -35,7 +39,7 @@ plotly_2D(proj_data, sim_data$colors) %>% plotly::layout(title = "MDS")
 ```
 
 Next, we look at some local nonlinear techniques.
-```
+```{r}
 # LLE
 proj_data <- LLE2(sim_data$data, dim = d, k = k)
 plotly_2D(proj_data, sim_data$colors) %>% plotly::layout(title = "LLE")
@@ -54,7 +58,7 @@ plotly_2D(proj_data, sim_data$colors) %>% plotly::layout(title = "Local Tangent 
 ```
 
 Finally, we have global nonlinear techniques.
-```
+```{r}
 # Isomap
 proj_data <- RDRToolbox::Isomap(sim_data$data, dims = d, k = k)$dim2
 plotly_2D(proj_data, sim_data$colors) %>% plotly::layout(title = "ISOMAP")

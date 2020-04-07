@@ -3,6 +3,7 @@
 #' Extracted from Todd Wittman's MANI: Manifold Learning Toolkit
 #' Source: http://macs.citadel.edu/wittman/research.html
 #' Port from Matlab to R by Jackson Kwok
+#' @keywords internal
 HLLE <- function (X, k, d) {
   N = ncol(X)
   if (length(k) == 1) {

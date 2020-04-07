@@ -8,8 +8,18 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-Simply use the following function to see the Shiny app for this package:
+
+Use the following function to start the Shiny app for this package:
 ```
 library(maniTools)
 run_example()
 ```
+
+## Screenshots
+
+*Note that Isomap and t-SNE can take quite some time (2-3 minutes) to run.
+
+<div align="center">
+<img src="shiny_screenshot_1.png" width="60%"/>
+<img src="shiny_screenshot_2.png" width="100%"/>
+</div>

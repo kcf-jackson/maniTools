@@ -3,6 +3,7 @@
 #' Extracted from Todd Wittman's MANI: Manifold Learning Toolkit
 #' Source: http://macs.citadel.edu/wittman/research.html
 #' Port from Matlab to R by Jackson Kwok
+#' @keywords internal
 LTSA <- function(data, d, K, NI) {
   m <- nrow(data)  #number of features
   N <- ncol(data)

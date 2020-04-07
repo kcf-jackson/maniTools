@@ -191,6 +191,6 @@ plotly_2D <- function(proj_data, colors) {
   x <- proj_data[,1]
   y <- proj_data[,2]
   if (missing(colors))
-    return(plotly::plot_ly(x = x, y = y, mode = "markers", marker = list(size = 5)))
-  plotly::plot_ly(x = x, y = y, mode = "markers", color = colors, marker = list(size = 5))
+    return(plotly::plot_ly(x = x, y = y, type = "scatter", mode = "markers", marker = list(size = 5)))
+  plotly::plot_ly(x = x, y = y, type = "scatter", mode = "markers", color = colors, marker = list(size = 5))
 }

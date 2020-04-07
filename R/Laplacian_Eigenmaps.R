@@ -3,6 +3,7 @@
 #' Extracted from Todd Wittman's MANI: Manifold Learning Toolkit
 #' Source: http://macs.citadel.edu/wittman/research.html
 #' Port from Matlab to R by Jackson Kwok
+#' @keywords internal
 leigs <- function(data, type = 'nn', param, ne) {
   n = nrow(data)
   A = Matrix::Matrix(numeric(n*n), nrow = n)
